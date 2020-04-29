@@ -1,24 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import Chance from 'chance';
+import { Score } from './vex-flow'
+
 import './App.css';
+import { bassNotes, trebleNotes } from './notes';
+import NotePicker from './note-picker';
+
+
+const chance = new Chance();
+
+const randomAnswer = () => chance.pickone(trebleNotes);
 
 function App() {
+  const [currentNote, setAnswer] = useState(randomAnswer());
+  const onNoteClick =(note) =>{
+
+    if(note === currentNote.answer) {
+        setAnswer(randomAnswer());
+    }
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Score
+        height={'150px'}
+        clef={'treble'}
+        staves={[
+          [currentNote.note]
+        ]}
+      />
+      <NotePicker onNoteClick={onNoteClick}/>
     </div>
   );
 }
