@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
 import Chance from 'chance';
+import styled from 'styled-components';
 
 import { Score } from './vex-flow'
 import NotePicker from './note-picker';
+
+const StyledScore = styled(Score)`
+    height: 150px;
+    width: 100%;
+`;
 
 const SingleNoteGame = ({notes, clef}) => {
     const chance = new Chance();
@@ -15,13 +21,11 @@ const SingleNoteGame = ({notes, clef}) => {
     }
     
     return <>
-        <Score
-        height={150}
-        width={262}
-        clef={clef}
-        staves={[
-            [currentNote.note]
-        ]}
+        <StyledScore
+            clef={clef}
+            staves={[
+                [currentNote.note]
+            ]}
         />
         <NotePicker onNoteClick={onNoteClick}/>
     </>

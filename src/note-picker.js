@@ -1,7 +1,7 @@
 import React from 'react';
 import NoteButton from './note-button';
 import {basicNotes} from './notes';
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const StyledPicker = styled.div`
     display: flex;

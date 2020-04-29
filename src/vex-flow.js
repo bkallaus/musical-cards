@@ -3,13 +3,12 @@ import VexFlow from 'vexflow'
 
 const VF = VexFlow.Flow
 const { Formatter, Renderer, Stave, StaveNote } = VF
-
-const clefAndTimeWidth = 60
+const clefAndTimeWidth = 60;
 
 export function Score({
   staves = [],
   clef,
-  width = 300,
+  width = 262,
   height = 150,
 }) {
   const container = useRef()
@@ -27,7 +26,7 @@ export function Score({
     const context = renderer.getContext()
     context.clear();
     context.setFont('Arial', 10, '').setBackgroundFillStyle('#eed')
-    const staveWidth = 200;
+    const staveWidth = 180;
 
     let currX = 0
     staves.forEach((notes, i) => {

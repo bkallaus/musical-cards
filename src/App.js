@@ -20,7 +20,7 @@ const StyledGameButton = styled.button`
     text-align: center;
 
     :active {
-        background: grey;
+        background: #ccc;
     }
 `;
 
