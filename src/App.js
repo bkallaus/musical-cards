@@ -1,36 +1,18 @@
-import React, { useState } from 'react';
-import Chance from 'chance';
-import { Score } from './vex-flow'
-import './App.css';
+import React from 'react';
+import styled from 'styled-components';
+import SingleNoteGame from './single-note-game';
 
-import { trebleNotes } from './notes';
-import NotePicker from './note-picker';
-
-
-const chance = new Chance();
-
-const randomAnswer = () => chance.pickone(trebleNotes);
+const StyledApp = styled.div`
+    padding-top: 24px;
+    text-align: center;
+`;
 
 function App() {
-  const [currentNote, setAnswer] = useState(randomAnswer());
-  const onNoteClick =(note) =>{
-
-    if(note === currentNote.answer) {
-        setAnswer(randomAnswer());
-    }
-  }
 
   return (
-    <div className="App">
-      <Score
-        height={'150px'}
-        clef={'treble'}
-        staves={[
-          [currentNote.note]
-        ]}
-      />
-      <NotePicker onNoteClick={onNoteClick}/>
-    </div>
+    <StyledApp className="App">
+      <SingleNoteGame />
+    </StyledApp>
   );
 }
 
