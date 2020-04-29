@@ -6,6 +6,7 @@ import styled from 'styled-components'
 const StyledPicker = styled.div`
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 `;
 
 const notePicker = ({onNoteClick}) => {

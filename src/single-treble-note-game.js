@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import Chance from 'chance';
 
 import { Score } from './vex-flow'
+import { trebleNotes } from './notes';
 import NotePicker from './note-picker';
 
-const SingleNoteGame = ({notes, clef}) => {
-    const chance = new Chance();
-    const randomAnswer = () => chance.pickone(notes);
+const chance = new Chance();
+
+const randomAnswer = () => chance.pickone(trebleNotes);
+const SingleNoteGame = () => {
     const [currentNote, setAnswer] = useState(randomAnswer());
 
     const onNoteClick = (note) =>{
@@ -17,9 +19,8 @@ const SingleNoteGame = ({notes, clef}) => {
     
     return <>
         <Score
-        height={150}
-        width={262}
-        clef={clef}
+        height={'150px'}
+        clef={'treble'}
         staves={[
             [currentNote.note]
         ]}

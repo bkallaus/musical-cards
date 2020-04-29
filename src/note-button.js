@@ -17,11 +17,11 @@ const StyledNoteButton = styled.button`
     }
 `;
 
-const noteButton = ({note, onNoteClick}) => {
+const NoteButton = ({note, onNoteClick}) => {
     return <StyledNoteButton onClick={() => onNoteClick(note)}>
         {note}
     </StyledNoteButton>
 }
 
 
-export default noteButton;
+export default NoteButton;
