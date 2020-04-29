@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Chance from 'chance';
 import { Score } from './vex-flow'
-
 import './App.css';
-import { bassNotes, trebleNotes } from './notes';
+
+import { trebleNotes } from './notes';
 import NotePicker from './note-picker';
 
 
