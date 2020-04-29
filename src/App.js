@@ -24,11 +24,6 @@ const StyledGameButton = styled.button`
     }
 `;
 
-const games = [
-   <SingleNoteGame clef={'treble'} notes={trebleNotes} />,
-   <SingleNoteGame clef={'bass'} notes={bassNotes}  />
-  ];
-
 function App() {
   const [gameId, setGameId] = useState(0);
 
@@ -38,7 +33,8 @@ function App() {
         <StyledGameButton onClick={() => setGameId(0)}>{'Treble'}</StyledGameButton>
         <StyledGameButton onClick={() => setGameId(1)}>{'Bass'}</StyledGameButton>
       </div>
-      {games[gameId]}
+      {!gameId && <SingleNoteGame clef={'treble'} notes={trebleNotes} />}
+      {gameId === 1 && <SingleNoteGame clef={'bass'} notes={bassNotes} />}
     </StyledApp>
   );
 }

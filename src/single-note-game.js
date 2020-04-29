@@ -6,12 +6,11 @@ import NotePicker from './note-picker';
 
 const SingleNoteGame = ({notes, clef}) => {
     const chance = new Chance();
-    const randomAnswer = () => chance.pickone(notes);
-    const [currentNote, setAnswer] = useState(randomAnswer());
+    const [currentNote, setAnswer] = useState(chance.pickone(notes));
 
     const onNoteClick = (note) =>{
       if(note === currentNote.answer) {
-          setAnswer(randomAnswer());
+          setAnswer(chance.pickone(notes));
       }
     }
     
