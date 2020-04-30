@@ -10,13 +10,26 @@ const StyledScore = styled(Score)`
     width: 100%;
 `;
 
-const SingleNoteGame = ({notes, clef}) => {
-    const chance = new Chance();
-    const [currentNote, setAnswer] = useState(chance.pickone(notes));
+const chance = new Chance();
 
-    const onNoteClick = (note) =>{
+const pickNewNote = (notes, currentNote = {}) => {
+    let nextNote = chance.pickone(notes);
+
+    while(nextNote.answer === currentNote.answer){
+        nextNote = chance.pickone(notes);
+    }
+
+    return nextNote;
+};
+
+const SingleNoteGame = ({notes, clef}) => {
+    const [currentNote, setAnswer] = useState(pickNewNote(notes));
+
+    const onNoteClick = (note) => {
       if(note === currentNote.answer) {
-          setAnswer(chance.pickone(notes));
+          const nextNote = pickNewNote(notes, currentNote);
+
+          setAnswer(nextNote);
       }
     }
     
