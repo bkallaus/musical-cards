@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "f150e646f7a0fc2783a6763e332e16aa",
+    "revision": "8ab80aef753c32a9ec6ec2e8b1bf2eb3",
     "url": "/musical-cards/index.html"
   },
   {
-    "revision": "4a7663ca3b146e050f8c",
+    "revision": "da9455eaf4ff3fed7363",
     "url": "/musical-cards/static/css/main.5ecd60fb.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/musical-cards/static/js/2.c73efddf.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "4a7663ca3b146e050f8c",
-    "url": "/musical-cards/static/js/main.789823f2.chunk.js"
+    "revision": "da9455eaf4ff3fed7363",
+    "url": "/musical-cards/static/js/main.a17df691.chunk.js"
   },
   {
     "revision": "04ead4ebe55bbccf7e73",
