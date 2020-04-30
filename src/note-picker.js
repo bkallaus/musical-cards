@@ -9,9 +9,9 @@ const StyledPicker = styled.div`
     justify-content: center;
 `;
 
-const notePicker = ({onNoteClick}) => {
+const notePicker = ({onNoteClick, currentNote}) => {
     return <StyledPicker>
-        {basicNotes.map((note) => <NoteButton key={note} note={note} onNoteClick={onNoteClick} />)}
+        {basicNotes.map((note) => <NoteButton key={note} currentNote={currentNote} note={note} onNoteClick={onNoteClick} />)}
     </StyledPicker>
 
 };

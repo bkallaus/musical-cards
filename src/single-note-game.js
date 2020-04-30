@@ -27,7 +27,7 @@ const SingleNoteGame = ({notes, clef}) => {
                 [currentNote.note]
             ]}
         />
-        <NotePicker onNoteClick={onNoteClick}/>
+        <NotePicker onNoteClick={onNoteClick} currentNote={currentNote}/>
     </>
 }
 

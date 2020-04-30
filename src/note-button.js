@@ -13,15 +13,18 @@ const StyledNoteButton = styled.button`
     text-align: center;
 
     :active {
-        background: #ccc;
+        background: ${(props) => props.color};
     }
 `;
 
-const NoteButton = ({note, onNoteClick}) => {
-    return <StyledNoteButton onClick={() => onNoteClick(note)}>
+const NoteButton = ({note, onNoteClick, currentNote}) => {
+    const color = currentNote.answer === note ? '#ADFF2F' : '#CCC';
+
+    return <StyledNoteButton 
+            color={color} 
+            onClick={() => onNoteClick(note)}>
         {note}
     </StyledNoteButton>
 }
-
 
 export default NoteButton;
