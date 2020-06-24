@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import SingleNoteGame from './single-note-game';
-import ChordsGame from './chords-game';
 import { trebleNotes, bassNotes } from './notes';
 
 const StyledApp = styled.div`
