@@ -3,11 +3,18 @@ import Chance from 'chance';
 import styled from 'styled-components';
 
 import { Score } from './vex-flow'
-import NotePicker from './note-picker';
+import {basicNotes} from './notes';
+import NoteButton from './note-button';
 
 const StyledScore = styled(Score)`
     height: 150px;
     width: 100%;
+`;
+
+const StyledPicker = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 `;
 
 const chance = new Chance();
@@ -26,21 +33,29 @@ const SingleNoteGame = ({notes, clef}) => {
     const [currentNote, setAnswer] = useState(pickNewNote(notes));
 
     const onNoteClick = (note) => {
-      if(note === currentNote.answer) {
-          const nextNote = pickNewNote(notes, currentNote);
+        if(note === currentNote.answer) {
+            const nextNote = pickNewNote(notes, currentNote);
 
-          setAnswer(nextNote);
-      }
+            setAnswer(nextNote);
+        }
     }
     
     return <>
         <StyledScore
             clef={clef}
-            staves={[
+            keys={
                 [currentNote.note]
-            ]}
+            }
         />
-        <NotePicker onNoteClick={onNoteClick} currentNote={currentNote}/>
+        <StyledPicker>
+            {basicNotes.map((note) =>
+                <NoteButton 
+                key={note}
+                currentNote={currentNote} 
+                note={note} 
+                onNoteClick={onNoteClick} />
+            )}
+        </StyledPicker>
     </>
 }
 

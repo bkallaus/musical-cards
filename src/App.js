@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import SingleNoteGame from './single-note-game';
+import ChordsGame from './chords-game';
 import { trebleNotes, bassNotes } from './notes';
 
 const StyledApp = styled.div`
@@ -31,7 +32,7 @@ function App() {
     <StyledApp className="App">
       <div>
         <StyledGameButton isActive={!gameId} onClick={() => setGameId(0)}>{'Treble'}</StyledGameButton>
-        <StyledGameButton isActive={gameId} onClick={() => setGameId(1)}>{'Bass'}</StyledGameButton>
+        <StyledGameButton isActive={gameId === 1} onClick={() => setGameId(1)}>{'Bass'}</StyledGameButton>
       </div>
       <h2>{'What note is this?'}</h2>
       {!gameId && <SingleNoteGame clef={'treble'} notes={trebleNotes} />}

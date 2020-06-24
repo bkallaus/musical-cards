@@ -7,6 +7,7 @@ const clefAndTimeWidth = 60;
 
 export function Score({
   staves = [],
+  keys,
   clef,
   width = 262,
   height = 150,
@@ -28,41 +29,22 @@ export function Score({
     context.setFont('Arial', 10, '').setBackgroundFillStyle('#eed')
     const staveWidth = 180;
 
-    let currX = 0
-    staves.forEach((notes, i) => {
-      const stave = new Stave(currX, 0, staveWidth)
-      if (i === 0) {
-        stave.setWidth(staveWidth + clefAndTimeWidth)
-        stave.addClef(clef)
-      }
-      currX += stave.getWidth()
-      stave.setContext(context).draw()
+    const stave = new Stave(0, 0, staveWidth);
+    stave.setWidth(staveWidth + clefAndTimeWidth);
+    stave.addClef(clef);
+    stave.setContext(context).draw();
 
-      const processedNotes = notes
-        .map(note => (typeof note === 'string' ? { key: note } : note))
-        .map(note =>
-          Array.isArray(note) ? { key: note[0], duration: note[1] } : note
-        )
-        .map(({ key, ...rest }) =>
-          typeof key === 'string'
-            ? {
-                key: key.includes('/') ? key : `${key[0]}/${key.slice(1)}`,
-                ...rest,
-              }
-            : rest
-        )
-        .map(
-          ({ key, keys, duration = 'q' }) =>
-            new StaveNote({
-              keys: key ? [key] : keys,
-              duration: String(duration),
-            })
-        )
-      Formatter.FormatAndDraw(context, stave, processedNotes, {
-        auto_beam: true,
-      })
-    })
-  }, [staves])
+    const stavedNotes = new StaveNote({
+      clef,
+      keys: keys,
+      duration: 'q',
+    });
+
+    Formatter.FormatAndDraw(context, stave, [stavedNotes], {
+      auto_beam: true,
+    });
+
+  }, [keys])
 
   return <div ref={container} />
 }

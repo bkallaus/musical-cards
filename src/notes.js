@@ -3,85 +3,85 @@ export const basicNotes = ['a','b','c','d','e','f','g'];
 export const trebleNotes = [
     {
         answer: 'c',
-        note: 'c4'
+        note: 'c/4'
     },{
         answer: 'd',
-        note: 'd4'
+        note: 'd/4'
     },{
         answer: 'e',
-        note: 'e4'
+        note: 'e/4'
     },{
         answer: 'f',
-        note: 'f4'
+        note: 'f/4'
     },{
         answer: 'g',
-        note: 'g4'
+        note: 'g/4'
     },{
         answer: 'a',
-        note: 'a4'
+        note: 'a/4'
     },{
         answer: 'b',
-        note: 'b4'
+        note: 'b/4'
     },{
         answer: 'c',
-        note: 'c5'
+        note: 'c/5'
     },{
         answer: 'd',
-        note: 'd5'
+        note: 'd/5'
     },{
         answer: 'e',
-        note: 'e5'
+        note: 'e/5'
     },{
         answer: 'f',
-        note: 'f5'
+        note: 'f/5'
     },{
         answer: 'g',
-        note: 'g5'
+        note: 'g/5'
     },{
         answer: 'a',
-        note: 'a5'
+        note: 'a/5'
     }
 ];
 
 export const bassNotes = [
     {
         answer: 'e',
-        note: 'c4'
+        note: 'e/2'
     },{
         answer: 'f',
-        note: 'd4'
+        note: 'f/2'
     },{
         answer: 'g',
-        note: 'e4'
+        note: 'g/2'
     },{
         answer: 'a',
-        note: 'f4'
+        note: 'a/3'
     },{
         answer: 'b',
-        note: 'g4'
+        note: 'b/3'
     },{
         answer: 'c',
-        note: 'a4'
+        note: 'c/3'
     },{
         answer: 'd',
-        note: 'b4'
+        note: 'd/3'
     },{
         answer: 'e',
-        note: 'c5'
+        note: 'e/3'
     },{
         answer: 'f',
-        note: 'd5'
+        note: 'f/3'
     },{
         answer: 'g',
-        note: 'e5'
+        note: 'g/3'
     },{
         answer: 'a',
-        note: 'f5'
+        note: 'a/3'
     },{
         answer: 'b',
-        note: 'g5'
+        note: 'b/3'
     },{
         answer: 'c',
-        note: 'a5'
+        note: 'c/3'
     }
 ];
