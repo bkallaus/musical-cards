@@ -33,10 +33,12 @@ function App() {
       <div>
         <StyledGameButton isActive={!gameId} onClick={() => setGameId(0)}>{'Treble'}</StyledGameButton>
         <StyledGameButton isActive={gameId === 1} onClick={() => setGameId(1)}>{'Bass'}</StyledGameButton>
+        <StyledGameButton isActive={gameId === 2} onClick={() => setGameId(2)}>{'Chords'}</StyledGameButton>
       </div>
       <h2>{'What note is this?'}</h2>
       {!gameId && <SingleNoteGame clef={'treble'} notes={trebleNotes} />}
       {gameId === 1 && <SingleNoteGame clef={'bass'} notes={bassNotes} />}
+      {gameId === 2 && <ChordsGame clef={'treble'} notes={trebleNotes} />}
     </StyledApp>
   );
 }

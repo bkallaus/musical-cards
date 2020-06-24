@@ -6,7 +6,6 @@ const { Formatter, Renderer, Stave, StaveNote } = VF
 const clefAndTimeWidth = 60;
 
 export function Score({
-  staves = [],
   keys,
   clef,
   width = 262,
