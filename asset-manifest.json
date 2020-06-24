@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/musical-cards/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/musical-cards/static/js/main.88ef42b9.chunk.js",
-    "main.js.map": "/musical-cards/static/js/main.88ef42b9.chunk.js.map",
+    "main.js": "/musical-cards/static/js/main.070615c7.chunk.js",
+    "main.js.map": "/musical-cards/static/js/main.070615c7.chunk.js.map",
     "runtime-main.js": "/musical-cards/static/js/runtime-main.f48f0d37.js",
     "runtime-main.js.map": "/musical-cards/static/js/runtime-main.f48f0d37.js.map",
-    "static/js/2.c73efddf.chunk.js": "/musical-cards/static/js/2.c73efddf.chunk.js",
-    "static/js/2.c73efddf.chunk.js.map": "/musical-cards/static/js/2.c73efddf.chunk.js.map",
+    "static/js/2.3718e705.chunk.js": "/musical-cards/static/js/2.3718e705.chunk.js",
+    "static/js/2.3718e705.chunk.js.map": "/musical-cards/static/js/2.3718e705.chunk.js.map",
     "index.html": "/musical-cards/index.html",
-    "precache-manifest.6bc8cbbfa07be4432391440a2cb49b59.js": "/musical-cards/precache-manifest.6bc8cbbfa07be4432391440a2cb49b59.js",
+    "precache-manifest.b9d0281bb6bdf485516b7f128620496c.js": "/musical-cards/precache-manifest.b9d0281bb6bdf485516b7f128620496c.js",
     "service-worker.js": "/musical-cards/service-worker.js",
     "static/css/main.5ecd60fb.chunk.css.map": "/musical-cards/static/css/main.5ecd60fb.chunk.css.map",
-    "static/js/2.c73efddf.chunk.js.LICENSE.txt": "/musical-cards/static/js/2.c73efddf.chunk.js.LICENSE.txt"
+    "static/js/2.3718e705.chunk.js.LICENSE.txt": "/musical-cards/static/js/2.3718e705.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.f48f0d37.js",
-    "static/js/2.c73efddf.chunk.js",
+    "static/js/2.3718e705.chunk.js",
     "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.88ef42b9.chunk.js"
+    "static/js/main.070615c7.chunk.js"
   ]
 }
