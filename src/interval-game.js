@@ -3,7 +3,6 @@ import Chance from 'chance';
 import styled from 'styled-components';
 
 import { Score } from './vex-flow'
-import {basicNotes} from './notes';
 import NoteButton from './note-button';
 
 const StyledScore = styled(Score)`
@@ -18,13 +17,14 @@ const StyledPicker = styled.div`
 `;
 
 const chance = new Chance();
+const distances = [1,2,3,4,5,6,7,8];
 
 const SingleNoteGame = ({notes, clef}) => {
-    const [currentNote, setAnswer] = useState(chance.d6());
-
+    const [distance, setAnswer] = useState(chance.d8());
+    const start = chance.d4();
     const onNoteClick = (note) => {
-        if(note === currentNote.answer) {
-            const nextNote = chance.d6()
+        if(note === distance) {
+            const nextNote = chance.d8()
 
             setAnswer(nextNote);
         }
@@ -33,17 +33,17 @@ const SingleNoteGame = ({notes, clef}) => {
     return <>
         <StyledScore
             clef={clef}
-            keys={['c/4', 'e/4', 'f/4']}
+            keys={[notes[start].note, notes[distance + start].note]}
         />
-        <StyledPicker>
-            {basicNotes.map((note) =>
+        {<StyledPicker>
+            {distances.map((note) =>
                 <NoteButton 
                 key={note}
-                currentNote={currentNote} 
+                currentNote={({answer: distance})} 
                 note={note} 
                 onNoteClick={onNoteClick} />
             )}
-        </StyledPicker>
+        </StyledPicker>}
     </>
 }
 
