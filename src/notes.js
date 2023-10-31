@@ -1,4 +1,4 @@
-export const basicNotes = ['a','b','c','d','e','f','g'];
+export const basicNotes = ['c','d','e','f','g','a','b'];
 
 export const trebleNotes = [
     {
