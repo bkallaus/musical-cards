@@ -4,9 +4,8 @@ import styled from 'styled-components';
 
 import { Score } from './vex-flow'
 import NoteButton from './note-button';
-import useLocalStorage from "use-local-storage";
-import { FaVolumeUp, FaVolumeMute } from "react-icons/fa";
 import * as Tone from 'tone';
+import VolumeControl from './volume-control';
 
 const StyledScore = styled(Score)`
     height: 150px;
@@ -30,16 +29,13 @@ const playChord = (low, high) => {
     synth.triggerAttackRelease(`${high.replace('/', '')}`, "16n",now + .01 );
 }
 
-const SingleNoteGame = ({notes, clef}) => {
-    const [playSound, setPlaySound] = useLocalStorage("MC_PLAY_SOUND", false);
+const IntervalGame = ({notes, clef}) => {
     const [distance, setAnswer] = useState(chance.d8());
     const start = chance.d4();
 
     const onNoteClick = (note) => {
         if(note === distance) {
-            if(playSound){
-                playChord(notes[start].note, notes[distance + start].note)
-            }
+            playChord(notes[start].note, notes[distance + start].note)
 
             const nextNote = chance.d8()
 
@@ -61,22 +57,8 @@ const SingleNoteGame = ({notes, clef}) => {
                 onNoteClick={onNoteClick} />
             )}
         </StyledPicker>}
-        <button style={{
-            position: 'absolute',
-            bottom: '16px',
-            right: '16px',
-            fontSize: '32px',
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer'
-        
-        }} 
-        onClick={() => setPlaySound((on) => !on)}
-        >
-            {playSound ? <FaVolumeUp/> : <FaVolumeMute/> }
-        </button>
-   
+        <VolumeControl />
     </>
 }
 
-export default SingleNoteGame;
+export default IntervalGame;
