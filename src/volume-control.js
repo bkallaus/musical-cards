@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { FaVolumeUp, FaVolumeMute } from "react-icons/fa";
-import * as Tone from 'tone';
+import { Destination, gainToDb } from 'tone';
 import useLocalStorage from "use-local-storage";
 
 const Container = styled.div`
@@ -47,10 +47,10 @@ const VolumeControl = () => {
         // 0 -> -Infinity
         // 100 -> 0 dB
         if (volume <= 0) {
-             Tone.Destination.volume.value = -Infinity;
+            Destination.volume.value = -Infinity;
         } else {
-             // Tone.gainToDb takes a value between 0 and 1
-             Tone.Destination.volume.value = Tone.gainToDb(volume / 100);
+            // Tone.gainToDb takes a value between 0 and 1
+            Destination.volume.value = gainToDb(volume / 100);
         }
     }, [volume]);
 
@@ -71,7 +71,7 @@ const VolumeControl = () => {
                 />
             </SliderContainer>
             <VolumeButton onClick={toggleSlider} title="Volume">
-                {volume > 0 ? <FaVolumeUp/> : <FaVolumeMute/> }
+                {volume > 0 ? <FaVolumeUp /> : <FaVolumeMute />}
             </VolumeButton>
         </Container>
     );

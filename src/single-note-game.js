@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Score } from './vex-flow'
 import { basicNotes } from './notes';
 import NoteButton from './note-button';
-import * as Tone from 'tone';
+import { Synth } from 'tone';
 import VolumeControl from './volume-control';
 
 const StyledScore = styled(Score)`
@@ -30,7 +30,7 @@ const pickNewNote = (notes, currentNote = {}) => {
     return nextNote;
 };
 
-const synth = new Tone.Synth({
+const synth = new Synth({
     oscillator: { type: "sine" },
     envelope: {
         attack: 0.005,

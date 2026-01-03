@@ -12,17 +12,20 @@ const StyledNoteButton = styled.button`
     margin: 4px;
     text-align: center;
 
-    :active {
+    transition: background 1s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+    &:active {
         background: ${(props) => props.color};
+        transition: background 0s;
     }
 `;
 
-const NoteButton = ({note, onNoteClick, currentNote}) => {
+const NoteButton = ({ note, onNoteClick, currentNote }) => {
     const color = currentNote.answer === note ? '#ADFF2F' : '#CCC';
 
-    return <StyledNoteButton 
-            color={color} 
-            onClick={() => onNoteClick(note)}>
+    return <StyledNoteButton
+        color={color}
+        onClick={() => onNoteClick(note)}>
         {note}
     </StyledNoteButton>
 }

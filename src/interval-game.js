@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { Score } from './vex-flow'
 import NoteButton from './note-button';
-import * as Tone from 'tone';
+import { Synth, now } from 'tone';
 import VolumeControl from './volume-control';
 
 const StyledScore = styled(Score)`
@@ -21,7 +21,7 @@ const StyledPicker = styled.div`
 const chance = new Chance();
 const distances = [1, 2, 3, 4, 5, 6, 7, 8];
 
-const synth = new Tone.Synth({
+const synth = new Synth({
     oscillator: { type: "triangle" },
     envelope: {
         attack: 0.005,
@@ -32,9 +32,9 @@ const synth = new Tone.Synth({
 }).toDestination();
 
 const playChord = (low, high) => {
-    const now = Tone.now()
-    synth.triggerAttackRelease(`${low.replace('/', '')}`, "8n", now);
-    synth.triggerAttackRelease(`${high.replace('/', '')}`, "8n", now + .01);
+    const start = now()
+    synth.triggerAttackRelease(`${low.replace('/', '')}`, "8n", start);
+    synth.triggerAttackRelease(`${high.replace('/', '')}`, "8n", start + .01);
 }
 
 const IntervalGame = ({ notes, clef }) => {
