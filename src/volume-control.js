@@ -14,7 +14,7 @@ const Container = styled.div`
 
 const SliderContainer = styled.div`
     margin-right: 10px;
-    display: ${props => props.visible ? 'flex' : 'none'};
+    display: ${props => props.$visible ? 'flex' : 'none'};
     align-items: center;
     background: white;
     padding: 8px;
@@ -60,7 +60,7 @@ const VolumeControl = () => {
 
     return (
         <Container>
-            <SliderContainer visible={showSlider}>
+            <SliderContainer $visible={showSlider}>
                 <input
                     type="range"
                     min="0"
