@@ -9,7 +9,12 @@ import VolumeControl from './volume-control';
 
 const StyledScore = styled(Score)`
     height: 150px;
-    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+
+    @media (max-width: 768px) { 
+        margin: 20px;
+    }
 `;
 
 const StyledPicker = styled.div`

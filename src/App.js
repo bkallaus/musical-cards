@@ -12,7 +12,7 @@ const StyledApp = styled.div`
 const StyledGameButton = styled.button`
     border: 1px solid black;
     border-radius: 8px;
-    background: ${(props) => props.isActive ? '#e0e0e0': 'white'};
+    background: ${(props) => props.$isActive ? '#e0e0e0': 'white'};
     display: inline-block;
     font-size: 20px;
     padding: 16px 48px;
@@ -31,9 +31,9 @@ function App() {
   return (
     <StyledApp className="App">
       <div>
-        <StyledGameButton isActive={!gameId} onClick={() => setGameId(0)}>{'Treble'}</StyledGameButton>
-        <StyledGameButton isActive={gameId === 1} onClick={() => setGameId(1)}>{'Bass'}</StyledGameButton>
-        <StyledGameButton isActive={gameId === 2} onClick={() => setGameId(2)}>{'Interval'}</StyledGameButton>
+        <StyledGameButton $isActive={!gameId} onClick={() => setGameId(0)}>{'Treble'}</StyledGameButton>
+        <StyledGameButton $isActive={gameId === 1} onClick={() => setGameId(1)}>{'Bass'}</StyledGameButton>
+        <StyledGameButton $isActive={gameId === 2} onClick={() => setGameId(2)}>{'Interval'}</StyledGameButton>
       </div>
       <h2>{'What note is this?'}</h2>
       {!gameId && <SingleNoteGame clef={'treble'} notes={trebleNotes} />}
