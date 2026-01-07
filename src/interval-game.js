@@ -18,6 +18,13 @@ const StyledPicker = styled.div`
     justify-content: center;
 `;
 
+const StyledStreak = styled.div`
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    min-height: 40px;
+`;
+
 const chance = new Chance();
 const distances = [1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -39,6 +46,8 @@ const playChord = (low, high) => {
 
 const IntervalGame = ({ notes, clef }) => {
     const [distance, setAnswer] = useState(chance.d8());
+    const [streak, setStreak] = useState(0);
+    const [feedback, setFeedback] = useState('');
     const start = chance.d4();
 
     const onNoteClick = (note) => {
@@ -46,8 +55,18 @@ const IntervalGame = ({ notes, clef }) => {
             playChord(notes[start].note, notes[distance + start].note)
 
             const nextNote = chance.d8()
-
             setAnswer(nextNote);
+
+            const newStreak = streak + 1;
+            setStreak(newStreak);
+            if (newStreak % 5 === 0) {
+                setFeedback(`Great job! ${newStreak} in a row!`);
+            } else {
+                setFeedback('');
+            }
+        } else {
+            setStreak(0);
+            setFeedback('');
         }
     }
 
@@ -56,6 +75,9 @@ const IntervalGame = ({ notes, clef }) => {
             clef={clef}
             keys={[notes[start].note, notes[distance + start].note]}
         />
+        <StyledStreak>
+            {feedback || `Streak: ${streak}`}
+        </StyledStreak>
         {<StyledPicker>
             {distances.map((note) =>
                 <NoteButton

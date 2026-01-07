@@ -18,6 +18,13 @@ const StyledPicker = styled.div`
     justify-content: center;
 `;
 
+const StyledStreak = styled.div`
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    min-height: 40px;
+`;
+
 const chance = new Chance();
 
 const pickNewNote = (notes, currentNote = {}) => {
@@ -46,14 +53,26 @@ const playNote = (note) => {
 
 const SingleNoteGame = ({ notes, clef }) => {
     const [currentNote, setAnswer] = useState(pickNewNote(notes));
+    const [streak, setStreak] = useState(0);
+    const [feedback, setFeedback] = useState('');
 
     const onNoteClick = (note) => {
         if (note === currentNote.answer) {
             playNote(currentNote.note)
 
             const nextNote = pickNewNote(notes, currentNote);
-
             setAnswer(nextNote);
+
+            const newStreak = streak + 1;
+            setStreak(newStreak);
+            if (newStreak % 5 === 0) {
+                setFeedback(`Great job! ${newStreak} in a row!`);
+            } else {
+                setFeedback('');
+            }
+        } else {
+            setStreak(0);
+            setFeedback('');
         }
     }
 
@@ -64,6 +83,9 @@ const SingleNoteGame = ({ notes, clef }) => {
                 [currentNote.note]
             }
         />
+        <StyledStreak>
+            {feedback || `Streak: ${streak}`}
+        </StyledStreak>
         <StyledPicker>
             {basicNotes.map((note) =>
                 <NoteButton
