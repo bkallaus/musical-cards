@@ -8,11 +8,13 @@ on:
       - synchronize
       - closed
 
+concurrency: preview-${{ github.ref }}
+
 jobs:
   deploy-preview:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       pull-requests: write
     steps:
       - name: Checkout
@@ -30,12 +32,10 @@ jobs:
           yarn install
           yarn build
 
-      - name: Deploy to Surge
-        uses: afc163/surge-preview@v1
+      - name: Deploy preview
+        uses: rossjrw/pr-preview-action@v1
         with:
-          surge_token: ${{ secrets.SURGE_TOKEN }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          dist: ./build
-          teardown: ${{ github.event.action == 'closed' }}
-          build: |
-             echo "Build already done in previous step"
+          source-dir: ./build
+          preview-branch: gh-pages
+          umbrella-dir: pr-preview
+          action: auto
