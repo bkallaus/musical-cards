@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/musical-cards/static/css/main.e6c13ad2.css",
+    "main.js": "/musical-cards/static/js/main.9b432e2c.js",
+    "index.html": "/musical-cards/index.html",
+    "main.e6c13ad2.css.map": "/musical-cards/static/css/main.e6c13ad2.css.map",
+    "main.9b432e2c.js.map": "/musical-cards/static/js/main.9b432e2c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.9b432e2c.js"
+  ]
+}
