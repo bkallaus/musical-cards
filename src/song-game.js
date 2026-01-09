@@ -61,38 +61,125 @@ const playNote = (note) => {
     synth.triggerAttackRelease(`${note.replace('/', '')}`, "8n");
 }
 
-const song = [
-  { answer: 'c', note: 'c/4' },
-  { answer: 'c', note: 'c/4' },
-  { answer: 'g', note: 'g/4' },
-  { answer: 'g', note: 'g/4' },
-  { answer: 'a', note: 'a/4' },
-  { answer: 'a', note: 'a/4' },
-  { answer: 'g', note: 'g/4' },
-
-  { answer: 'f', note: 'f/4' },
-  { answer: 'f', note: 'f/4' },
-  { answer: 'e', note: 'e/4' },
-  { answer: 'e', note: 'e/4' },
-  { answer: 'd', note: 'd/4' },
-  { answer: 'd', note: 'd/4' },
-  { answer: 'c', note: 'c/4' },
+const songs = [
+    [ // Twinkle Twinkle Little Star
+        { answer: 'c', note: 'c/4' },
+        { answer: 'c', note: 'c/4' },
+        { answer: 'g', note: 'g/4' },
+        { answer: 'g', note: 'g/4' },
+        { answer: 'a', note: 'a/4' },
+        { answer: 'a', note: 'a/4' },
+        { answer: 'g', note: 'g/4' },
+        { answer: 'f', note: 'f/4' },
+        { answer: 'f', note: 'f/4' },
+        { answer: 'e', note: 'e/4' },
+        { answer: 'e', note: 'e/4' },
+        { answer: 'd', note: 'd/4' },
+        { answer: 'd', note: 'd/4' },
+        { answer: 'c', note: 'c/4' },
+    ],
+    [ // Mary Had a Little Lamb
+        { answer: 'e', note: 'e/4' },
+        { answer: 'd', note: 'd/4' },
+        { answer: 'c', note: 'c/4' },
+        { answer: 'd', note: 'd/4' },
+        { answer: 'e', note: 'e/4' },
+        { answer: 'e', note: 'e/4' },
+        { answer: 'e', note: 'e/4' },
+        { answer: 'd', note: 'd/4' },
+        { answer: 'd', note: 'd/4' },
+        { answer: 'd', note: 'd/4' },
+        { answer: 'e', note: 'e/4' },
+        { answer: 'g', note: 'g/4' },
+        { answer: 'g', note: 'g/4' },
+        { answer: 'e', note: 'e/4' },
+        { answer: 'd', note: 'd/4' },
+        { answer: 'c', note: 'c/4' },
+        { answer: 'd', note: 'd/4' },
+        { answer: 'e', note: 'e/4' },
+        { answer: 'e', note: 'e/4' },
+        { answer: 'e', note: 'e/4' },
+        { answer: 'e', note: 'e/4' },
+        { answer: 'd', note: 'd/4' },
+        { answer: 'd', note: 'd/4' },
+        { answer: 'e', note: 'e/4' },
+        { answer: 'd', note: 'd/4' },
+        { answer: 'c', note: 'c/4' },
+    ],
+    [ // Row Row Row Your Boat
+        { answer: 'c', note: 'c/4' },
+        { answer: 'c', note: 'c/4' },
+        { answer: 'c', note: 'c/4' },
+        { answer: 'd', note: 'd/4' },
+        { answer: 'e', note: 'e/4' },
+        { answer: 'e', note: 'e/4' },
+        { answer: 'd', note: 'd/4' },
+        { answer: 'e', note: 'e/4' },
+        { answer: 'f', note: 'f/4' },
+        { answer: 'g', note: 'g/4' },
+        { answer: 'c', note: 'c/5' },
+        { answer: 'c', note: 'c/5' },
+        { answer: 'c', note: 'c/5' },
+        { answer: 'g', note: 'g/4' },
+        { answer: 'g', note: 'g/4' },
+        { answer: 'g', note: 'g/4' },
+        { answer: 'e', note: 'e/4' },
+        { answer: 'e', note: 'e/4' },
+        { answer: 'e', note: 'e/4' },
+        { answer: 'c', note: 'c/4' },
+        { answer: 'c', note: 'c/4' },
+        { answer: 'c', note: 'c/4' },
+        { answer: 'g', note: 'g/4' },
+        { answer: 'f', note: 'f/4' },
+        { answer: 'e', note: 'e/4' },
+        { answer: 'd', note: 'd/4' },
+        { answer: 'c', note: 'c/4' },
+    ],
+    [ // Ode to Joy
+        { answer: 'e', note: 'e/4' },
+        { answer: 'e', note: 'e/4' },
+        { answer: 'f', note: 'f/4' },
+        { answer: 'g', note: 'g/4' },
+        { answer: 'g', note: 'g/4' },
+        { answer: 'f', note: 'f/4' },
+        { answer: 'e', note: 'e/4' },
+        { answer: 'd', note: 'd/4' },
+        { answer: 'c', note: 'c/4' },
+        { answer: 'c', note: 'c/4' },
+        { answer: 'd', note: 'd/4' },
+        { answer: 'e', note: 'e/4' },
+        { answer: 'e', note: 'e/4' },
+        { answer: 'd', note: 'd/4' },
+        { answer: 'd', note: 'd/4' },
+    ]
 ];
 
+const getRandomSong = () => songs[Math.floor(Math.random() * songs.length)];
+
+const playFullSong = (song) => {
+    song.forEach((part, index) => {
+        setTimeout(() => {
+            playNote(part.note);
+        }, index * 400);
+    });
+};
+
 const SongGame = () => {
+    const [currentSong, setCurrentSong] = useState(getRandomSong());
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isFinished, setIsFinished] = useState(false);
 
     const onNoteClick = (note) => {
         if (isFinished) return;
 
-        const currentNote = song[currentIndex];
+        const currentNote = currentSong[currentIndex];
 
         if (note === currentNote.answer) {
             playNote(currentNote.note);
 
-            if (currentIndex + 1 >= song.length) {
+            if (currentIndex + 1 >= currentSong.length) {
                 setIsFinished(true);
+                setTimeout(() => playFullSong(currentSong), 1000);
             } else {
                 setCurrentIndex(currentIndex + 1);
             }
@@ -100,20 +187,21 @@ const SongGame = () => {
     }
 
     const restart = () => {
+        setCurrentSong(getRandomSong());
         setCurrentIndex(0);
         setIsFinished(false);
     }
 
-    const currentNote = song[currentIndex];
+    const currentNote = currentSong[currentIndex];
 
     return <>
         {!isFinished ? (
-             <StyledScore
+            <StyledScore
                 clef={'treble'}
                 keys={[currentNote.note]}
             />
         ) : (
-            <div style={{height: '150px'}} />
+            <div style={{ height: '150px' }} />
         )}
 
         <StyledMessage>
@@ -128,13 +216,13 @@ const SongGame = () => {
                         note={note}
                         currentNote={currentNote}
                         onNoteClick={onNoteClick}
-                        />
+                    />
                 )}
             </StyledPicker>
         )}
 
         {isFinished && (
-            <div style={{textAlign: 'center'}}>
+            <div style={{ textAlign: 'center' }}>
                 <StyledButton onClick={restart}>Play Again</StyledButton>
             </div>
         )}
