@@ -1,6 +1,30 @@
-Running Example: https://bkallaus.github.io/musical-cards
+# Musical Cards
 
-A project to help learning to read music.
+A web application to help users learn to read music and improve their ear training.
+
+**Live Demo:** [https://bkallaus.github.io/musical-cards](https://bkallaus.github.io/musical-cards)
+
+## Features
+
+The application offers several modes to practice different aspects of music theory:
+
+*   **Treble Clef**: Practice identifying notes on the treble clef.
+*   **Bass Clef**: Practice identifying notes on the bass clef.
+*   **Interval**: Practice identifying intervals between notes.
+*   **Song**: Practice by identifying and playing notes from familiar songs.
+
+Key features include:
+*   Visual music notation rendering using [VexFlow](https://github.com/0xfe/vexflow).
+*   Audio feedback for notes using [Tone.js](https://tonejs.github.io/).
+*   Randomized note generation for endless practice.
+
+## Technologies Used
+
+*   [React](https://reactjs.org/)
+*   [Styled Components](https://styled-components.com/)
+*   [VexFlow](https://github.com/0xfe/vexflow)
+*   [Tone.js](https://tonejs.github.io/)
+*   [Chance](https://chancejs.com/)
 
 ## Available Scripts
 
