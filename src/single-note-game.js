@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Chance from 'chance';
 import styled from 'styled-components';
 import { Score } from './vex-flow'
@@ -60,8 +60,20 @@ const SingleNoteGame = ({ notes, clef }) => {
     const [currentNote, setAnswer] = useState(pickNewNote(notes));
     const [streak, setStreak] = useState(0);
     const [feedback, setFeedback] = useState('');
+    const [interactionId, setInteractionId] = useState(0);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setStreak(0);
+            setFeedback(`Time's up! It was ${currentNote.answer.toUpperCase()}`);
+            const nextNote = pickNewNote(notes, currentNote);
+            setAnswer(nextNote);
+        }, 10000);
+        return () => clearTimeout(timer);
+    }, [currentNote, notes, interactionId]);
 
     const onNoteClick = (note) => {
+        setInteractionId(id => id + 1);
         if (note === currentNote.answer) {
             playNote(currentNote.note)
 
