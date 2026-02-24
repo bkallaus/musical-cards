@@ -89,7 +89,9 @@ const SingleNoteGame = ({ notes, clef }) => {
             }
         } else {
             setStreak(0);
-            setFeedback('');
+            setFeedback(`Wrong! It was ${currentNote.answer.toUpperCase()}`);
+            const nextNote = pickNewNote(notes, currentNote);
+            setAnswer(nextNote);
         }
     }
 

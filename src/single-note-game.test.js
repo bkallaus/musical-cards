@@ -20,7 +20,7 @@ jest.mock('tone', () => ({
 
 // Mock VexFlow Score component
 jest.mock('./vex-flow', () => ({
-  Score: () => <div data-testid="score-mock">Score</div>
+  Score: ({ keys }) => <div data-testid="score-mock" data-keys={keys ? keys.join(',') : ''}>Score</div>
 }));
 
 // Mock VolumeControl
@@ -74,4 +74,36 @@ test('resets timer on interaction', () => {
 
   // Now should show "Time's up!"
   expect(screen.getByText(/Time's up/i)).toBeInTheDocument();
+});
+
+test('picks new note and shows feedback on incorrect answer', () => {
+    render(<SingleNoteGame notes={notes} clef="treble" />);
+
+    // Get current note from score mock
+    const score = screen.getByTestId('score-mock');
+    const currentNoteKey = score.getAttribute('data-keys');
+    const currentNoteObj = notes.find(n => n.note === currentNoteKey);
+    const correctAns = currentNoteObj.answer;
+
+    // Find a button that is INCORRECT
+    const buttons = screen.getAllByRole('button');
+    const wrongButton = buttons.find(btn => btn.textContent !== correctAns);
+
+    // Click wrong button
+    fireEvent.click(wrongButton);
+
+    // Should show feedback "Wrong! It was ..."
+    expect(screen.getByText(new RegExp(`Wrong! It was ${correctAns.toUpperCase()}`, 'i'))).toBeInTheDocument();
+
+    // Should have picked a NEW note
+    // Note: The mock `Score` component updates immediately.
+    // However, since `pickNewNote` is random, there's a tiny chance it picks the same note IF we didn't force it not to.
+    // But `pickNewNote` implementation explicitly loops while nextNote.answer === currentNote.answer.
+    // So it MUST be different.
+
+    // We need to re-query the score because the component re-rendered
+    const newScore = screen.getByTestId('score-mock');
+    const newNoteKey = newScore.getAttribute('data-keys');
+
+    expect(newNoteKey).not.toBe(currentNoteKey);
 });
