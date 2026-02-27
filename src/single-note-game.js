@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Chance from 'chance';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { Score } from './vex-flow'
 import { basicNotes } from './notes';
 import NoteButton from './note-button';
@@ -23,11 +23,18 @@ const StyledPicker = styled.div`
     justify-content: center;
 `;
 
+const pulse = keyframes`
+    0% { transform: scale(1); }
+    50% { transform: scale(1.5); }
+    100% { transform: scale(1); }
+`;
+
 const StyledStreak = styled.div`
     text-align: center;
     font-size: 24px;
     margin-bottom: 20px;
     min-height: 40px;
+    animation: ${pulse} 0.2s linear;
 `;
 
 const chance = new Chance();
@@ -102,7 +109,7 @@ const SingleNoteGame = ({ notes, clef }) => {
                 [currentNote.note]
             }
         />
-        <StyledStreak>
+        <StyledStreak key={streak}>
             {feedback || `Streak: ${streak}`}
         </StyledStreak>
         <StyledPicker>
