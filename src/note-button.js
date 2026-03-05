@@ -15,16 +15,16 @@ const StyledNoteButton = styled.button`
     transition: background 1s cubic-bezier(0.25, 0.8, 0.25, 1);
 
     &:active {
-        background: ${(props) => props.color};
+        background: ${(props) => props.$color};
         transition: background 0s;
     }
 `;
 
 const NoteButton = ({ note, onNoteClick, currentNote }) => {
-    const color = currentNote.answer === note ? '#ADFF2F' : '#CCC';
+    const color = currentNote.answer === note ? '#ADFF2F' : '#FF0000';
 
     return <StyledNoteButton
-        color={color}
+        $color={color}
         onClick={() => onNoteClick(note)}>
         {note}
     </StyledNoteButton>
