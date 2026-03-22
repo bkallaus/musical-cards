@@ -1,16 +1,17 @@
 import React from 'react';
 import { render, screen, act, fireEvent } from '@testing-library/react';
+import { vi } from 'vitest';
 import SingleNoteGame from './single-note-game';
 
-jest.useFakeTimers();
+vi.useFakeTimers();
 
 // Mock Tone.js
-jest.mock('tone', () => ({
-  Synth: jest.fn().mockImplementation(() => ({
-    toDestination: jest.fn().mockReturnThis(),
-    triggerAttackRelease: jest.fn(),
+vi.mock('tone', () => ({
+  Synth: vi.fn().mockImplementation(() => ({
+    toDestination: vi.fn().mockReturnThis(),
+    triggerAttackRelease: vi.fn(),
   })),
-  now: jest.fn(),
+  now: vi.fn(),
   Destination: {
       volume: {
           value: 0
@@ -19,12 +20,14 @@ jest.mock('tone', () => ({
 }));
 
 // Mock VexFlow Score component
-jest.mock('./vex-flow', () => ({
+vi.mock('./vex-flow', () => ({
   Score: ({ keys }) => <div data-testid="score-mock" data-keys={keys ? keys.join(',') : ''}>Score</div>
 }));
 
 // Mock VolumeControl
-jest.mock('./volume-control', () => () => <div data-testid="volume-control-mock">VolumeControl</div>);
+vi.mock('./volume-control', () => ({
+  default: () => <div data-testid="volume-control-mock">VolumeControl</div>
+}));
 
 const notes = [
   { answer: 'c', note: 'c/4' },
@@ -40,7 +43,7 @@ test('shows "Time\'s up!" after 10 seconds', () => {
 
   // Advance time by 10s
   act(() => {
-      jest.advanceTimersByTime(10000);
+      vi.advanceTimersByTime(10000);
   });
 
   // Check feedback
@@ -52,7 +55,7 @@ test('resets timer on interaction', () => {
 
   // Advance 5s
   act(() => {
-      jest.advanceTimersByTime(5000);
+      vi.advanceTimersByTime(5000);
   });
 
   // Click a button (simulating interaction)
@@ -61,7 +64,7 @@ test('resets timer on interaction', () => {
 
   // Advance another 5s (total 10s from start)
   act(() => {
-      jest.advanceTimersByTime(5000);
+      vi.advanceTimersByTime(5000);
   });
 
   // Should NOT show "Time's up!" yet (because timer reset at 5s)
@@ -69,7 +72,7 @@ test('resets timer on interaction', () => {
 
   // Advance another 5s (total 10s from interaction)
   act(() => {
-      jest.advanceTimersByTime(5000);
+      vi.advanceTimersByTime(5000);
   });
 
   // Now should show "Time's up!"

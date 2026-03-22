@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { render } from '@testing-library/react';
+import { vi } from 'vitest';
 import App from './App';
 
 // Mock Tone.js because it requires Web Audio API which is not fully supported in JSDOM
-jest.mock('tone', () => {
+vi.mock('tone', () => {
   return {
-    Synth: jest.fn().mockImplementation(() => {
+    Synth: vi.fn().mockImplementation(() => {
       return {
-        toDestination: jest.fn().mockReturnThis(),
-        triggerAttackRelease: jest.fn(),
+        toDestination: vi.fn().mockReturnThis(),
+        triggerAttackRelease: vi.fn(),
       };
     }),
-    now: jest.fn(),
-    gainToDb: jest.fn((gain) => gain),
+    now: vi.fn(),
+    gainToDb: vi.fn((gain) => gain),
     Destination: {
         volume: {
             value: 0

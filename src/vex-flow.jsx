@@ -8,13 +8,14 @@ const clefAndTimeWidth = 60;
 // Colors from Design System
 const STAFF_COLOR = '#737781'; // --outline
 const NOTE_COLOR = '#00254d';  // --primary
-const ACTIVE_NOTE_COLOR = '#f68a00'; // --accent-container
+const ACTIVE_NOTE_COLOR = '#000000'; // black
 
 export function Score({
   keys,
   clef,
   width = 262,
   height = 150,
+  highlighted = true,
   ...rest
 }) {
   const container = useRef()
@@ -68,19 +69,23 @@ export function Score({
       duration: 'q',
     });
 
+    const noteColor = highlighted ? ACTIVE_NOTE_COLOR : NOTE_COLOR;
+
     stavedNotes.setStyle({
-        fillStyle: NOTE_COLOR,
-        strokeStyle: NOTE_COLOR,
+        fillStyle: noteColor,
+        strokeStyle: noteColor,
     });
 
     // Make the note head a bit more prominent
-    stavedNotes.setKeyStyle(0, { fillStyle: NOTE_COLOR });
+    keys.forEach((_, index) => {
+        stavedNotes.setKeyStyle(index, { fillStyle: noteColor });
+    });
 
     Formatter.FormatAndDraw(context, stave, [stavedNotes], {
       auto_beam: true,
     });
 
-  }, [keys, chartWidth, height, clef])
+  }, [keys, chartWidth, height, clef, highlighted])
 
   return <div ref={container} {...rest} />
 }
