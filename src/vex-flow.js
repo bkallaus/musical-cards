@@ -5,6 +5,11 @@ const VF = VexFlow.Flow || VexFlow
 const { Formatter, Renderer, Stave, StaveNote } = VF
 const clefAndTimeWidth = 60;
 
+// Colors from Design System
+const STAFF_COLOR = '#737781'; // --outline
+const NOTE_COLOR = '#00254d';  // --primary
+const ACTIVE_NOTE_COLOR = '#f68a00'; // --accent-container
+
 export function Score({
   keys,
   clef,
@@ -23,7 +28,6 @@ export function Score({
       }
     }
 
-    // Set initial width
     handleResize();
 
     window.addEventListener('resize', handleResize)
@@ -41,11 +45,19 @@ export function Score({
     renderer.resize(chartWidth, height)
     const context = renderer.getContext()
     context.clear();
-    context.setFont('Arial', 10, '').setBackgroundFillStyle('#eed')
+    
+    // Design system prefers no background fill for the SVG itself as it sits on a surface
+    context.setFont('Plus Jakarta Sans', 10, '')
 
     const staveWidth = Math.max(chartWidth - clefAndTimeWidth - 1, 100);
 
     const stave = new Stave(0, 0, staveWidth);
+    // VexFlow 4.2.3 uses setStyle, not setStyles
+    stave.setStyle({
+        strokeStyle: STAFF_COLOR,
+        fillStyle: STAFF_COLOR,
+    });
+    
     stave.setWidth(staveWidth + clefAndTimeWidth);
     stave.addClef(clef);
     stave.setContext(context).draw();
@@ -55,6 +67,14 @@ export function Score({
       keys: keys,
       duration: 'q',
     });
+
+    stavedNotes.setStyle({
+        fillStyle: NOTE_COLOR,
+        strokeStyle: NOTE_COLOR,
+    });
+
+    // Make the note head a bit more prominent
+    stavedNotes.setKeyStyle(0, { fillStyle: NOTE_COLOR });
 
     Formatter.FormatAndDraw(context, stave, [stavedNotes], {
       auto_beam: true,

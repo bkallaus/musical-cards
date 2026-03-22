@@ -3,16 +3,63 @@ import styled from 'styled-components';
 import { Score } from './vex-flow'
 import { basicNotes } from './notes';
 import NoteButton from './note-button';
-import { Synth } from 'tone';
+import * as Tone from 'tone';
 import VolumeControl from './volume-control';
+
+const GameContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
+
+    @media (max-width: 768px) {
+        gap: 32px;
+    }
+`;
+
+const ScoreWrapper = styled.div`
+    width: 100%;
+    background: var(--surface-container-low);
+    border-radius: 16px;
+    padding: 32px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    min-height: 214px;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(0, 37, 77, 0.03) 0%, rgba(0, 59, 115, 0) 100%);
+        pointer-events: none;
+    }
+
+    @media (max-width: 768px) {
+        padding: 16px;
+        min-height: 182px;
+    }
+`;
 
 const StyledScore = styled(Score)`
     height: 150px;
-    max-width: 800px;
-    margin: 0 auto;
+    width: 100%;
+    max-width: 600px;
+`;
+
+const PickerWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+    align-items: center;
 
     @media (max-width: 768px) {
-        margin: 20px;
+        gap: 16px;
     }
 `;
 
@@ -20,34 +67,77 @@ const StyledPicker = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-`;
+    gap: 12px;
 
-const StyledMessage = styled.div`
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 20px;
-    min-height: 40px;
-`;
-
-const StyledButton = styled.button`
-    border: 1px solid black;
-    border-radius: 8px;
-    background: white;
-    display: inline-block;
-    font-size: 20px;
-    padding: 16px 48px;
-    text-decoration: none;
-    margin: 20px;
-    text-align: center;
-    cursor: pointer;
-
-    :active {
-        background: #ccc;
+    @media (max-width: 768px) {
+        gap: 8px;
     }
 `;
 
+const Label = styled.div`
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--on-surface-variant);
+`;
 
-const synth = new Synth({
+const FeedbackSection = styled.div`
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+`;
+
+const FeedbackText = styled.div`
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--primary);
+
+    @media (max-width: 768px) {
+        font-size: 1.125rem;
+    }
+`;
+
+const PrimaryButton = styled.button`
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-container) 100%);
+    color: white;
+    border: none;
+    padding: 16px 48px;
+    border-radius: 1.5rem; /* Rounded-XL */
+    font-size: 1.125rem;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(0, 37, 77, 0.2);
+    
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0, 37, 77, 0.3);
+    }
+    
+    &:active {
+        transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+        padding: 14px 32px;
+        font-size: 1rem;
+    }
+`;
+
+const ControlsWrapper = styled.div`
+    width: 100%;
+    border-top: 1px solid var(--outline-variant);
+    padding-top: 32px;
+    margin-top: 16px;
+
+    @media (max-width: 768px) {
+        padding-top: 24px;
+    }
+`;
+
+const synth = new Tone.Synth({
     oscillator: { type: "sine" },
     envelope: {
         attack: 0.005,
@@ -194,41 +284,50 @@ const SongGame = () => {
 
     const currentNote = currentSong[currentIndex];
 
-    return <>
-        {!isFinished ? (
-            <StyledScore
-                clef={'treble'}
-                keys={[currentNote.note]}
-            />
-        ) : (
-            <div style={{ height: '150px' }} />
-        )}
-
-        <StyledMessage>
-            {isFinished ? "Song Complete!" : "Play the note shown above"}
-        </StyledMessage>
-
-        {!isFinished && (
-            <StyledPicker>
-                {basicNotes.map((note) =>
-                    <NoteButton
-                        key={note}
-                        note={note}
-                        currentNote={currentNote}
-                        onNoteClick={onNoteClick}
+    return (
+        <GameContainer>
+            <ScoreWrapper>
+                {!isFinished ? (
+                    <StyledScore
+                        clef={'treble'}
+                        keys={[currentNote.note]}
                     />
+                ) : (
+                    <FeedbackText style={{ fontSize: '2rem', color: 'var(--secondary)' }}>
+                        ✨ Bravo!
+                    </FeedbackText>
                 )}
-            </StyledPicker>
-        )}
+            </ScoreWrapper>
 
-        {isFinished && (
-            <div style={{ textAlign: 'center' }}>
-                <StyledButton onClick={restart}>Play Again</StyledButton>
-            </div>
-        )}
+            <FeedbackSection>
+                <FeedbackText>
+                    {isFinished ? "Song Complete!" : `Note ${currentIndex + 1} of ${currentSong.length}`}
+                </FeedbackText>
+            </FeedbackSection>
 
-        <VolumeControl />
-    </>
+            {!isFinished ? (
+                <PickerWrapper>
+                    <Label>Play the note shown above</Label>
+                    <StyledPicker>
+                        {basicNotes.map((note) =>
+                            <NoteButton
+                                key={note}
+                                note={note}
+                                currentNote={currentNote}
+                                onNoteClick={onNoteClick}
+                            />
+                        )}
+                    </StyledPicker>
+                </PickerWrapper>
+            ) : (
+                <PrimaryButton onClick={restart}>Play Again</PrimaryButton>
+            )}
+
+            <ControlsWrapper>
+                <VolumeControl />
+            </ControlsWrapper>
+        </GameContainer>
+    );
 }
 
 export default SongGame;

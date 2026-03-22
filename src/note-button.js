@@ -2,29 +2,43 @@ import React from 'react';
 import styled from 'styled-components'
 
 const StyledNoteButton = styled.button`
-    border: 1px solid black;
-    border-radius: 8px;
-    background: white;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    background: var(--surface-container-high);
+    color: var(--on-surface);
     display: inline-block;
-    font-size: 20px;
-    padding: 24px 40px;
-    text-decoration: none;
-    margin: 4px;
-    text-align: center;
+    font-size: 1.125rem;
+    font-weight: 700;
+    padding: 16px 32px;
+    text-transform: uppercase;
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    min-width: 80px;
 
-    transition: background 1s cubic-bezier(0.25, 0.8, 0.25, 1);
+    &:hover {
+        background: var(--secondary-container);
+        border-color: var(--outline-variant);
+        transform: translateY(-2px);
+    }
 
     &:active {
-        background: ${(props) => props.color};
+        background: ${(props) => props.$activeColor};
+        transform: translateY(0);
         transition: background 0s;
+    }
+
+    @media (max-width: 768px) {
+        padding: 12px 24px;
+        font-size: 1rem;
+        min-width: 64px;
     }
 `;
 
 const NoteButton = ({ note, onNoteClick, currentNote }) => {
-    const color = currentNote.answer === note ? '#ADFF2F' : '#CCC';
+    // The design system mentions using Tertiary orange (#f68a00) for active/correct note popping
+    const activeColor = 'var(--accent-container)';
 
     return <StyledNoteButton
-        color={color}
+        $activeColor={activeColor}
         onClick={() => onNoteClick(note)}>
         {note}
     </StyledNoteButton>
